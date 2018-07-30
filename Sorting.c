@@ -123,6 +123,34 @@ void printArray(int A[], int size)
         printf("%d ", A[i]);
     printf("\n");
 }
+//Partition function for quicksort
+int partition(int A[], int start, int end)
+{
+	int i, temp, temp1;
+	int pivot = A[end];
+	int partitionIndex = start;
+	for(i = start; i < end ; i++){
+		if(A[i] <= pivot){
+			temp = A[i];
+			A[i] = A[partitionIndex];
+			A[partitionIndex] = temp;
+			partitionIndex++;
+		}
+	}
+	temp1 = A[partitionIndex];
+	A[partitionIndex] = A[end];
+	A[end] = temp1;
+	return partitionIndex;
+}
+void quickSort(int A[], int start, int end)
+{
+	if(start < end)
+	{
+		int partitionIndex = partition(A, start, end);
+		quickSort(A, start, partitionIndex - 1);
+		quickSort(A, partitionIndex + 1, end);
+	}
+}
 int main()
 {
 	int i;
@@ -135,7 +163,8 @@ int main()
 	int A[6] = {4 , 1, 6, 9, 2, 3};
 	mergeSort(A, 0, 6-1); //mergeSort(Array, lowest index, size -1)
 	printArray(A, 6); // printArray(Array, size)
-	
+	quickSort(A, 0, 5);
+	printArray(A, 6);
 	
 }
 
